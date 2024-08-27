@@ -1,0 +1,6 @@
+<Project>
+  <PropertyGroup>
+    <!--Your Supermarket Together install directory goes here-->
+    <SuperMarketTogetherDir>E:\SteamLibrary\steamapps\common\Supermarket Together</SuperMarketTogetherDir>
+  </PropertyGroup>
+</Project>
