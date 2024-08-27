@@ -25,7 +25,9 @@ public class GUIRenderer
 
 	private bool _RenderGUI;
 
-	private ImGuiKey MenuKey = ImGuiKey.Insert;
+	private bool Intro = true;
+
+	private ImGuiKey MenuKey = ImGuiKey.RightShift;
 
 	public void Initialize()
 	{
@@ -53,10 +55,47 @@ public class GUIRenderer
 		GUI.Shutdown();
 	}
 
+	private void RenderIntro()
+	{
+		if (!ImGui.Begin($"HTogether {HTogether.FormattedVersion}", ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoNav | ImGuiWindowFlags.NoResize))
+		{
+			ImGui.End();
+			return;
+		}
+
+		ImGui.SetWindowSize(new Vector2(300, 130));
+
+		Vector2 displaySize = ImGui.GetIO().DisplaySize;
+		Vector2 windowSize = ImGui.GetWindowSize();
+		Vector2 windowPos = new((displaySize.X - windowSize.X) / 2, (displaySize.Y - windowSize.Y) / 2);
+
+		ImGui.SetWindowPos(windowPos);
+		ImGui.Text($"Welcome to HTogether {HTogether.FormattedVersion}!");
+
+		ImGui.Text($"To open HTogether press Right Shift.");
+		ImGui.TextLinkOpenURL("Made by JNNJ", "https://github.com/CodeName-Anti/");
+
+		ImGui.End();
+	}
+
 	private void OnRender()
 	{
 		try
 		{
+			if (ImGui.IsKeyPressed(MenuKey, false))
+			{
+				RenderGUI = !RenderGUI;
+
+				if (Intro)
+					Intro = false;
+			}
+
+			if (Intro)
+			{
+				RenderIntro();
+				return;
+			}
+
 			RenderModules();
 		}
 		catch (Exception ex)
@@ -67,16 +106,11 @@ public class GUIRenderer
 
 	private void RenderModules()
 	{
-		if (ImGui.IsKeyPressed(MenuKey, false))
-			RenderGUI = !RenderGUI;
-
 		// Call OnRender for things like ESP
 		HTogether.Instance.ModuleManager.ExecuteForModules(m => m.OnRender());
 
 		if (!RenderGUI)
 			return;
-
-		ImGui.ShowDemoWindow();
 
 		ImGui.Begin("HTogether by JNNJ");
 
@@ -105,7 +139,6 @@ public class GUIRenderer
 		ImGui.SetWindowSize(new Vector2(0, 0), ImGuiCond.Once);
 
 		ImGui.End();
-
 	}
 
 	private static void SetupImGuiStyle()
