@@ -3,5 +3,7 @@
 public enum TabID
 {
 	None = -1,
-	TheH
+	Money,
+	Franchise,
+	Testing
 }

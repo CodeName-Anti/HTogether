@@ -5,6 +5,8 @@ using SysVec2 = System.Numerics.Vector2;
 using SysVec3 = System.Numerics.Vector3;
 using SysVec4 = System.Numerics.Vector4;
 
+using SysColor = System.Drawing.Color;
+
 namespace HTogether.Utils;
 
 public static class ImGuiExtensions
@@ -28,6 +30,11 @@ public static class ImGuiExtensions
 	public static SysVec4 ToSysVec(this Color color)
 	{
 		return new SysVec4(color.r, color.g, color.b, color.a);
+	}
+
+	public static SysVec4 ToSysVec(this SysColor color)
+	{
+		return new SysVec4(color.R / 255, color.G / 255, color.B / 255, color.A / 255);
 	}
 
 	public static uint ToImguiColor(this SysVec4 vector)
