@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
 using HTogether.Patches;
 using HTogether.Rendering;
+using HTogether.Utils;
 using ImGuiNET;
 using UnityEngine;
 
@@ -20,6 +21,9 @@ public class TestingModule() : Module("Testing", TabID.Testing)
 		{
 			GameObject.FindObjectsByType<BoxData>(FindObjectsSortMode.None).Do(b => b.gameObject.layer = BoxDataPatch.InitialLayer);
 		}
+
+		ImGui.TextColored(Color.red.ToSysVec(), "Look directly at box without escape menu open");
+		ImGui.TextColored(Color.red.ToSysVec(), "while being far enough away to not pick it up");
 
 		ImGui.SliderInt("Box Item Amount", ref amount, 0, 10000);
 
