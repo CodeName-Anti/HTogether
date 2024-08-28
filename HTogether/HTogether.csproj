@@ -138,7 +138,7 @@
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="$(SuperMarketTogetherDir) != ''">
 
-    <!--CrabGamePath is defined in CrabCheat.csproj.user which is not included because of the .gitignore-->
+    <!--SuperMarketTogetherDir is defined in HTogether.csproj.user which is not included because of the .gitignore-->
     <Exec Command="xcopy &quot;$(TargetPath)&quot; &quot;$(SuperMarketTogetherDir)\BepInEx\plugins&quot; /Y" />
     <Exec Command="xcopy &quot;$(TargetDir)$(AssemblyName).pdb&quot; &quot;$(SuperMarketTogetherDir)\BepInEx\plugins&quot; /Y /I" />
 
