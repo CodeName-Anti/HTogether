@@ -13,7 +13,7 @@ A Mod for [Supermarket Together](https://store.steampowered.com/app/2709570/Supe
 ## Installation
 1. Download [BepInEx 5 x64](https://github.com/BepInEx/BepInEx/releases/download/v5.4.23.2/BepInEx_win_x64_5.4.23.2.zip).
 2. Download [HTogether.zip](https://github.com/CodeName-Anti/HTogether/releases/latest/download/HTogether.zip).
-3. Extract the Zip archive in your Supermarket Together Installation Folder(Steam -> Right Click Supermarket Together -> Manage -> Browse local Files).  
+3. Extract the BepInEx Zip archive in your Supermarket Together Installation Folder(Steam -> Right Click Supermarket Together -> Manage -> Browse local Files).  
 ![Steam_Manage_Screenshot.png](images/Steam_Manage_Screenshot.png)
       
     Your Supermarkt Together Installation Folder should look like this:
