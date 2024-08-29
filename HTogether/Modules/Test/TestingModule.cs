@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace HTogether.Modules.Test;
 
-[CheatModule]
+[HModule]
 public class TestingModule() : Module("Testing", TabID.Testing)
 {
 
@@ -29,7 +29,7 @@ public class TestingModule() : Module("Testing", TabID.Testing)
 
 		ImGui.SameLine();
 
-		if (ImGui.Button("Set amount"))
+		if (ImGui.Button("Set amount") && LobbyController.Instance.LocalplayerController.isServer)
 		{
 			Camera main = Camera.main;
 			if (!Physics.Raycast(main.transform.position, main.transform.forward, out RaycastHit hitInfo))

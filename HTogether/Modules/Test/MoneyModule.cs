@@ -5,7 +5,7 @@ using System.Drawing;
 
 namespace HTogether.Modules;
 
-[CheatModule]
+[HModule]
 public class MoneyModule() : Module("test", TabID.Money)
 {
 	private int amount;

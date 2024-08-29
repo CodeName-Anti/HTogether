@@ -3,7 +3,7 @@ using ImGuiNET;
 
 namespace HTogether.Modules.Test;
 
-[CheatModule]
+[HModule]
 public class FranchiseModule() : Module("Franchise", TabID.Franchise)
 {
 
