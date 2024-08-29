@@ -57,7 +57,7 @@ public class GUIRenderer
 
 	private void RenderIntro()
 	{
-		if (!ImGui.Begin($"HTogether {HTogether.FormattedVersion}", ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoNav | ImGuiWindowFlags.NoResize))
+		if (!ImGui.Begin($"HTogether {MyPluginInfo.PLUGIN_VERSION}", ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoNav | ImGuiWindowFlags.NoResize))
 		{
 			ImGui.End();
 			return;
@@ -70,7 +70,7 @@ public class GUIRenderer
 		Vector2 windowPos = new((displaySize.X - windowSize.X) / 2, (displaySize.Y - windowSize.Y) / 2);
 
 		ImGui.SetWindowPos(windowPos);
-		ImGui.Text($"Welcome to HTogether {HTogether.FormattedVersion}!");
+		ImGui.Text($"Welcome to HTogether {MyPluginInfo.PLUGIN_VERSION}!");
 
 		ImGui.Text($"To open HTogether press Right Shift.");
 		ImGui.TextLinkOpenURL("Made by JNNJ", "https://github.com/CodeName-Anti/");
