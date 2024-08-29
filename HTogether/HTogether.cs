@@ -32,6 +32,8 @@ public class HTogether : BaseUnityPlugin
 		Instance = this;
 		Logger = base.Logger;
 
+		gameObject.AddComponent<UnityMainThreadDispatcher>();
+
 		// Initialize Harmony
 		try
 		{
