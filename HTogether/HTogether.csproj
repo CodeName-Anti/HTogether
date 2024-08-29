@@ -138,6 +138,10 @@
       <HintPath>$(SuperMarketTogetherDir)\Supermarket Together_Data\Managed\UnityEngine.PhysicsModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>$(SuperMarketTogetherDir)\Supermarket Together_Data\Managed\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="$(SuperMarketTogetherDir) != ''">

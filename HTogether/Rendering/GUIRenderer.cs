@@ -1,8 +1,10 @@
 ﻿using HarmonyLib;
+using HTogether.Utils;
 using ImGuiNET;
 using SharpGUI;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Numerics;
 
@@ -13,6 +15,8 @@ public class GUIRenderer
 	public SortedDictionary<int, GUITab> Tabs { get; private set; }
 	public int CurrentTabId { get; private set; }
 
+	private bool updateAvailable;
+
 	public bool RenderGUI
 	{
 		get => _RenderGUI;
@@ -20,6 +24,7 @@ public class GUIRenderer
 		{
 			_RenderGUI = value;
 			GUI.HandleInput = _RenderGUI;
+			GUI.BlockInput = _RenderGUI;
 		}
 	}
 
@@ -33,6 +38,14 @@ public class GUIRenderer
 	{
 		Tabs = [];
 
+		try
+		{
+			updateAvailable = UpdateChecker.IsUpdateAvailable("CodeName-Anti", "HTogether", MyPluginInfo.PLUGIN_VERSION);
+		} catch(Exception ex)
+		{
+			HTogether.Logger.LogError($"Error fetching GitHub releases: {ex}");
+		}
+
 		foreach (TabID tabIdEnum in Enum.GetValues(typeof(TabID)))
 		{
 			int tabId = (int)tabIdEnum;
@@ -43,6 +56,9 @@ public class GUIRenderer
 		GUI.OnRender += OnRender;
 		GUI.OnInitImGui += SetupImGuiStyle;
 		GUI.Initialize();
+
+		GUI.HandleInput = true;
+		GUI.BlockInput = false;
 	}
 
 	public void Shutdown()
@@ -59,13 +75,11 @@ public class GUIRenderer
 
 	private void RenderIntro()
 	{
-		if (!ImGui.Begin($"HTogether {MyPluginInfo.PLUGIN_VERSION}", ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoNav | ImGuiWindowFlags.NoResize))
+		if (!ImGui.Begin($"HTogether {MyPluginInfo.PLUGIN_VERSION}", ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoNav | ImGuiWindowFlags.NoResize  | ImGuiWindowFlags.NoMove))
 		{
 			ImGui.End();
 			return;
 		}
-
-		ImGui.SetWindowSize(new Vector2(300, 130));
 
 		Vector2 displaySize = ImGui.GetIO().DisplaySize;
 		Vector2 windowSize = ImGui.GetWindowSize();
@@ -75,7 +89,25 @@ public class GUIRenderer
 		ImGui.Text($"Welcome to HTogether {MyPluginInfo.PLUGIN_VERSION}!");
 
 		ImGui.Text($"To open HTogether press Right Shift.");
+
+		if (updateAvailable)
+		{
+			ImGui.Separator();
+
+			ImGui.PushStyleColor(ImGuiCol.Text, Color.Red.ToSysVec());
+			ImGui.PushStyleColor(ImGuiCol.TextLink, Color.Red.ToSysVec());
+
+			ImGui.Text("An update is available, visit:");
+			ImGui.TextLinkOpenURL("https://github.com/CodeName-Anti/HTogether");
+
+			ImGui.PopStyleColor(2);
+
+			ImGui.Separator();
+		}
+
 		ImGui.TextLinkOpenURL("Made by JNNJ", "https://github.com/CodeName-Anti/");
+
+		ImGui.SetWindowSize(Vector2.Zero);
 
 		ImGui.End();
 	}
