@@ -14,7 +14,7 @@ public class HTogether : BaseUnityPlugin
 {
 	public static HTogether Instance { get; private set; }
 
-	public bool LockdownFeatures { get; set; }
+	public static bool LockdownFeatures { get; set; } = true;
 
 	public static new ManualLogSource Logger { get; private set; }
 	public Harmony HarmonyInstance { get; private set; }

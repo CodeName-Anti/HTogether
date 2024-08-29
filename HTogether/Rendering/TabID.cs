@@ -1,8 +1,7 @@
 ﻿namespace HTogether.Rendering;
 
-public enum TabID
+internal enum TabID
 {
-	None = -1,
 	Money,
 	Franchise,
 	Testing

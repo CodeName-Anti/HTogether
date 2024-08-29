@@ -10,8 +10,8 @@ namespace HTogether.Rendering;
 
 public class GUIRenderer
 {
-	public Dictionary<TabID, string> Tabs { get; private set; }
-	public TabID CurrentTabId { get; private set; }
+	public SortedDictionary<int, GUITab> Tabs { get; private set; }
+	public int CurrentTabId { get; private set; }
 
 	public bool RenderGUI
 	{
@@ -33,26 +33,28 @@ public class GUIRenderer
 	{
 		Tabs = [];
 
-		foreach (TabID tabId in Enum.GetValues(typeof(TabID)))
+		foreach (TabID tabIdEnum in Enum.GetValues(typeof(TabID)))
 		{
-			Tabs.Add(tabId, Enum.GetName(typeof(TabID), tabId));
-		}
+			int tabId = (int)tabIdEnum;
 
-		Tabs.Remove(TabID.None);
+			Tabs.Add(tabId, new GUITab(Enum.GetName(typeof(TabID), tabIdEnum), tabId));
+		}
 
 		GUI.OnRender += OnRender;
 		GUI.OnInitImGui += SetupImGuiStyle;
-		InitBackend();
-	}
-
-	private void InitBackend()
-	{
 		GUI.Initialize();
 	}
 
 	public void Shutdown()
 	{
 		GUI.Shutdown();
+	}
+
+	public int CreateTab(string name)
+	{
+		GUITab tab = new(name, Tabs.Keys.Last() + 1);
+		Tabs.Add(tab.Id, tab);
+		return tab.Id;
 	}
 
 	private void RenderIntro()
@@ -116,15 +118,18 @@ public class GUIRenderer
 
 		if (ImGui.BeginTabBar("tabs"))
 		{
-			foreach (KeyValuePair<TabID, string> entry in Tabs)
+			foreach (KeyValuePair<int, GUITab> entry in Tabs)
 			{
-				if (ImGui.TabItemButton(entry.Value))
+				if (!entry.Value.Enabled)
+					continue;
+
+				if (ImGui.TabItemButton(entry.Value.Name))
 					CurrentTabId = entry.Key;
 			}
 			ImGui.EndTabBar();
 		}
 
-		HTogether.Instance.ModuleManager.Modules.Where(m => m.Tab== CurrentTabId).Do(m =>
+		HTogether.Instance.ModuleManager.Modules.Where(m => m.Tab == CurrentTabId).Do(m =>
 		{
 			try
 			{

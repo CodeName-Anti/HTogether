@@ -5,21 +5,26 @@ namespace HTogether.Modules;
 
 public class Module
 {
-    public string Name { get; protected set; }
+	public string Name { get; protected set; }
 
-    public TabID Tab { get; protected set; } 
+	public int Tab { get; protected set; } 
 
-    public virtual void Init(bool json = false)
-    {
-    }
+	public virtual void Init()
+	{
+	}
 
-    public Module(string name, TabID tab)
-    {
-        Name = name;
-        Tab = tab;
+	public Module(string name, int tab)
+	{
+		Name = name;
+		Tab = tab;
 
-        Init();
-    }
+		Init();
+	}
+
+	internal Module(string name, TabID tabId) : this(name, (int)tabId)
+	{
+		// Empty
+	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public virtual void RenderGUIElements() { }
@@ -28,12 +33,12 @@ public class Module
 	public virtual void OnRender() { }
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public virtual void Update() { }
+	public virtual void Update() { }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public virtual void FixedUpdate() { }
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public virtual void FixedUpdate() { }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public virtual void OnGUI() { }
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public virtual void OnGUI() { }
 
 }

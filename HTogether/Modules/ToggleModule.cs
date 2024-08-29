@@ -13,7 +13,13 @@ public class ToggleModule : Module
 
 	protected bool enabled;
 
-	public ToggleModule(string name, TabID tab) : base(name, tab) { }
+	public ToggleModule(string name, int tab) : base(name, tab)
+	{
+	}
+
+	internal ToggleModule(string name, TabID tabId) : base(name, tabId)
+	{
+	}
 
 	public override void RenderGUIElements()
 	{
