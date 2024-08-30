@@ -27,8 +27,6 @@ public class TestingModule() : Module("Testing", TabID.Testing)
 
 		ImGui.SliderInt("Box Item Amount", ref amount, 0, 10000);
 
-		ImGui.SameLine();
-
 		if (ImGui.Button("Set amount") && LobbyController.Instance.LocalplayerController.isServer)
 		{
 			Camera main = Camera.main;

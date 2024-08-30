@@ -21,6 +21,8 @@ public class MoneyModule() : Module("test", TabID.Money)
 			GameData.Instance.NetworkgameFunds += amount;
 		}
 
+		ImGui.SameLine();
+
 		if (ImGui.Button("Remove"))
 		{
 			GameData.Instance.NetworkgameFunds -= amount;

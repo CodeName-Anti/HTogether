@@ -4,7 +4,7 @@
     <TargetFramework>net472</TargetFramework>
     <AssemblyName>HTogether</AssemblyName>
     <Product>HTogether</Product>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <RestoreAdditionalProjectSources>
@@ -151,7 +151,6 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="$(SuperMarketTogetherDir) != ''">
-
     <!--SuperMarketTogetherDir is defined in HTogether.csproj.user which is not included because of the .gitignore-->
     <Exec Command="xcopy &quot;$(TargetPath)&quot; &quot;$(SuperMarketTogetherDir)\BepInEx\plugins&quot; /Y" />
     <Exec Command="xcopy &quot;$(TargetDir)$(AssemblyName).pdb&quot; &quot;$(SuperMarketTogetherDir)\BepInEx\plugins&quot; /Y /I" />
