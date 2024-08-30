@@ -11,16 +11,30 @@ public class FranchiseModule() : Module("Franchise", TabID.Franchise)
 
 	public override void RenderGUIElements()
 	{
-		ImGui.SliderInt("Amount", ref amount, 0, 10000);
+		ImGui.SliderInt("Amount", ref amount, 0, 150);
 
 		if (ImGui.Button("Add exp"))
 		{
-			GameData.Instance.NetworkgameFranchiseExperience += 6969;
+			GameData.Instance.NetworkgameFranchiseExperience += amount;
+		}
+
+		ImGui.SameLine();
+
+		if (ImGui.Button("Remove exp"))
+		{
+			GameData.Instance.NetworkgameFranchiseExperience -= amount;
 		}
 
 		if (ImGui.Button("Add points"))
 		{
-			GameData.Instance.NetworkgameFranchisePoints += 6969;
+			GameData.Instance.NetworkgameFranchisePoints += amount;
+		}
+
+		ImGui.SameLine();
+
+		if (ImGui.Button("Remove Points"))
+		{
+			GameData.Instance.NetworkgameFranchisePoints -= amount;
 		}
 	}
 
