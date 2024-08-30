@@ -19,7 +19,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\FontAwesome\fa-solid-900.ttf" />
     <None Remove="HTogether.csproj.user.example" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\**">
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
