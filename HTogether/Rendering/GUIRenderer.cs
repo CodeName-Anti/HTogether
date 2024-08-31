@@ -18,7 +18,9 @@ public class GUIRenderer
 	public SortedDictionary<int, GUITab> Tabs { get; private set; }
 	public int CurrentTabId { get; private set; }
 
-	private bool updateAvailable;
+	public event Action OnDrawIntro = delegate { };
+
+	public ImGuiKey MenuKey = ImGuiKey.RightShift;
 
 	public bool RenderGUI
 	{
@@ -30,12 +32,10 @@ public class GUIRenderer
 			GUI.BlockInput = _RenderGUI;
 		}
 	}
-
 	private bool _RenderGUI;
 
 	private bool Intro = true;
-
-	private ImGuiKey MenuKey = ImGuiKey.RightShift;
+	private bool updateAvailable;
 
 	public void Initialize()
 	{
@@ -106,6 +106,21 @@ public class GUIRenderer
 		}
 	}
 
+	public void DrawUpdateAvailable(string name, string url)
+	{
+		ImGui.Separator();
+
+		ImGui.PushStyleColor(ImGuiCol.Text, Color.Red.ToSysVec());
+		ImGui.PushStyleColor(ImGuiCol.TextLink, Color.Red.ToSysVec());
+
+		ImGui.Text($"An update for {name} is available, visit:");
+		ImGui.TextLinkOpenURL(url);
+
+		ImGui.PopStyleColor(2);
+
+		ImGui.Separator();
+	}
+
 	private void RenderIntro()
 	{
 		if (!ImGui.Begin($"HTogether {MyPluginInfo.PLUGIN_VERSION}", ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoNav | ImGuiWindowFlags.NoResize  | ImGuiWindowFlags.NoMove))
@@ -121,27 +136,17 @@ public class GUIRenderer
 		ImGui.SetWindowPos(windowPos);
 		ImGui.Text($"Welcome to HTogether {MyPluginInfo.PLUGIN_VERSION}!");
 
-		ImGui.Text($"To open HTogether press Right Shift.");
-
 		if (updateAvailable)
 		{
-			ImGui.Separator();
-
-			ImGui.PushStyleColor(ImGuiCol.Text, Color.Red.ToSysVec());
-			ImGui.PushStyleColor(ImGuiCol.TextLink, Color.Red.ToSysVec());
-
-			ImGui.Text("An update is available, visit:");
-			ImGui.TextLinkOpenURL("https://github.com/CodeName-Anti/HTogether");
-
-			ImGui.PopStyleColor(2);
-
-			ImGui.Separator();
+			DrawUpdateAvailable("HTogether", "https://github.com/CodeName-Anti/HTogether");
 		}
 
+		OnDrawIntro();
+
+		ImGui.Text($"To open HTogether press Right Shift.");
 		ImGui.TextLinkOpenURL("Made by JNNJ", "https://github.com/CodeName-Anti/");
 
 		ImGui.SetWindowSize(Vector2.Zero);
-
 		ImGui.End();
 	}
 
