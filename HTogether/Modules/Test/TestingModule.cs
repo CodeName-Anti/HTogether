@@ -27,21 +27,29 @@ public class TestingModule() : Module("Testing", BaseTabID.Testing)
 
 		ImGui.SliderInt("Box Item Amount", ref amount, 0, 10000);
 
-		if (ImGui.Button("Set amount") && LobbyController.Instance.LocalplayerController.isServer)
+		if (ImGui.Button("Set amount"))
 		{
-			Camera main = Camera.main;
-			if (!Physics.Raycast(main.transform.position, main.transform.forward, out RaycastHit hitInfo))
-				return;
-
-			GameObject obj = hitInfo.transform.gameObject;
-
-			BoxData data = obj.GetComponentInParent<BoxData>();
-
-			if (data == null)
-				return;
-
-			data.numberOfProducts = amount;
+			SetBoxAmount();
 		}
+	}
+
+	private void SetBoxAmount()
+	{
+		if (!LobbyController.Instance.LocalplayerController.isServer && HTogether.LockdownFeatures)
+			return;
+
+		Camera main = Camera.main;
+		if (!Physics.Raycast(main.transform.position, main.transform.forward, out RaycastHit hitInfo))
+			return;
+
+		GameObject obj = hitInfo.transform.gameObject;
+
+		BoxData data = obj.GetComponentInParent<BoxData>();
+
+		if (data == null)
+			return;
+
+		data.numberOfProducts = amount;
 	}
 
 }
