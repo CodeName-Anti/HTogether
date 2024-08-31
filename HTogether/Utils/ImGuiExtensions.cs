@@ -10,6 +10,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Reflection;
 using System;
+using IconFonts;
 
 namespace HTogether.Utils;
 
@@ -114,6 +115,18 @@ public static class ImGuiExtensions
 			{
 				rangeHandle.Free();
 			}
+		}
+	}
+
+	public static void HelpMarker(string description)
+	{
+		ImGui.TextDisabled(FontAwesome6.CircleQuestion);
+		if (ImGui.BeginItemTooltip())
+		{
+			ImGui.PushTextWrapPos(ImGui.GetFontSize() * 35.0f);
+			ImGui.TextUnformatted(description);
+			ImGui.PopTextWrapPos();
+			ImGui.EndTooltip();
 		}
 	}
 

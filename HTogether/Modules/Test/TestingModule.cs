@@ -22,15 +22,15 @@ public class TestingModule() : Module("Testing", BaseTabID.Testing)
 			GameObject.FindObjectsByType<BoxData>(FindObjectsSortMode.None).Do(b => b.gameObject.layer = BoxDataPatch.InitialLayer);
 		}
 
-		ImGui.TextColored(Color.red.ToSysVec(), "Look directly at box without escape menu open");
-		ImGui.TextColored(Color.red.ToSysVec(), "while being far enough away to not pick it up");
-
 		ImGui.SliderInt("Box Item Amount", ref amount, 0, 10000);
 
 		if (ImGui.Button("Set amount"))
 		{
 			SetBoxAmount();
 		}
+
+		ImGui.SameLine();
+		ImGuiExtensions.HelpMarker("Sets the item amount of the boxes in a small radius.");
 	}
 
 	private void SetBoxAmount()
@@ -38,18 +38,15 @@ public class TestingModule() : Module("Testing", BaseTabID.Testing)
 		if (!LobbyController.Instance.LocalplayerController.isServer && HTogether.LockdownFeatures)
 			return;
 
-		Camera main = Camera.main;
-		if (!Physics.Raycast(main.transform.position, main.transform.forward, out RaycastHit hitInfo))
-			return;
+		Collider[] colliders = Physics.OverlapSphere(LobbyController.Instance.LocalplayerController.transform.position, 1.8f);
 
-		GameObject obj = hitInfo.transform.gameObject;
+		foreach (Collider collider in colliders)
+		{
+			if (!collider.TryGetComponent<BoxData>(out BoxData data))
+				continue;
 
-		BoxData data = obj.GetComponentInParent<BoxData>();
-
-		if (data == null)
-			return;
-
-		data.numberOfProducts = amount;
+			data.numberOfProducts = amount;
+		}
 	}
 
 }
