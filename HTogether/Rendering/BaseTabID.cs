@@ -1,6 +1,6 @@
 ﻿namespace HTogether.Rendering;
 
-internal enum TabID
+public enum BaseTabID
 {
 	Money,
 	Franchise,

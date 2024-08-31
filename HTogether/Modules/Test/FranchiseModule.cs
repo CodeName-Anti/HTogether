@@ -4,7 +4,7 @@ using ImGuiNET;
 namespace HTogether.Modules.Test;
 
 [HModule]
-public class FranchiseModule() : Module("Franchise", TabID.Franchise)
+public class FranchiseModule() : Module("Franchise", BaseTabID.Franchise)
 {
 
 	private int amount;

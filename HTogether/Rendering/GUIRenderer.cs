@@ -49,11 +49,11 @@ public class GUIRenderer
 			HTogether.Logger.LogError($"Error fetching GitHub releases: {ex}");
 		}
 
-		foreach (TabID tabIdEnum in Enum.GetValues(typeof(TabID)))
+		foreach (BaseTabID tabIdEnum in Enum.GetValues(typeof(BaseTabID)))
 		{
 			int tabId = (int)tabIdEnum;
 
-			Tabs.Add(tabId, new GUITab(Enum.GetName(typeof(TabID), tabIdEnum), tabId));
+			Tabs.Add(tabId, new GUITab(Enum.GetName(typeof(BaseTabID), tabIdEnum), tabId));
 		}
 
 		GUI.OnRender += OnRender;

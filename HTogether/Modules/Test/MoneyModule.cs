@@ -6,7 +6,7 @@ using System.Drawing;
 namespace HTogether.Modules;
 
 [HModule]
-public class MoneyModule() : Module("test", TabID.Money)
+public class MoneyModule() : Module("test", BaseTabID.Money)
 {
 	private int amount;
 

@@ -8,7 +8,7 @@ using UnityEngine;
 namespace HTogether.Modules.Test;
 
 [HModule]
-public class TestingModule() : Module("Testing", TabID.Testing)
+public class TestingModule() : Module("Testing", BaseTabID.Testing)
 {
 
 	private int amount = 0;

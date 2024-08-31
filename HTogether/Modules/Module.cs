@@ -21,7 +21,7 @@ public class Module
 		Init();
 	}
 
-	internal Module(string name, TabID tabId) : this(name, (int)tabId)
+	internal Module(string name, BaseTabID tabId) : this(name, (int)tabId)
 	{
 		// Empty
 	}

@@ -17,7 +17,7 @@ public class ToggleModule : Module
 	{
 	}
 
-	internal ToggleModule(string name, TabID tabId) : base(name, tabId)
+	internal ToggleModule(string name, BaseTabID tabId) : base(name, tabId)
 	{
 	}
 
