@@ -10,8 +10,9 @@ namespace HTogether.Modules.Test;
 [HModule]
 public class TestingModule() : Module("Testing", BaseTabID.Testing)
 {
-
 	private int amount = 0;
+
+	private float setItemAmountRadius = 1.8f;
 
 	public override void RenderGUIElements()
 	{
@@ -23,6 +24,8 @@ public class TestingModule() : Module("Testing", BaseTabID.Testing)
 		}
 
 		ImGui.SliderInt("Box Item Amount", ref amount, 0, 10000);
+
+		ImGui.SliderFloat("Range", ref setItemAmountRadius, 0, 30);
 
 		if (ImGui.Button("Set amount"))
 		{
@@ -38,7 +41,7 @@ public class TestingModule() : Module("Testing", BaseTabID.Testing)
 		if (!LobbyController.Instance.LocalplayerController.isServer && HTogether.LockdownFeatures)
 			return;
 
-		Collider[] colliders = Physics.OverlapSphere(LobbyController.Instance.LocalplayerController.transform.position, 1.8f);
+		Collider[] colliders = Physics.OverlapSphere(LobbyController.Instance.LocalplayerController.transform.position, setItemAmountRadius);
 
 		foreach (Collider collider in colliders)
 		{
